@@ -1,0 +1,336 @@
+@font-face {
+  font-family: "Silly";
+  src: url("./assets/fonts/silly.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Page shell: controls the full sketch canvas/background. */
+.app-shell {
+  width: 100%;
+  height: 100svh;
+  min-height: 720px;
+  overflow: hidden;
+  margin: 0 auto;
+  background-size: 100% 100%;
+  background-position: top center;
+  background-repeat: no-repeat;
+}
+
+/* Header/nav: left home image, middle clock image, right text links. */
+.site-nav {
+  display: grid;
+  grid-template-columns: 130px 200px 1fr;
+  align-items: center;
+  gap: 28px;
+  width: min(100%, 1220px);
+  margin: 0 auto;
+  padding: 18px 42px 0;
+}
+
+.home-button {
+  display: block;
+}
+
+.home-button img {
+  display: block;
+  width: 130px;
+  height: auto;
+}
+
+.nav-clock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-clock img {
+  display: block;
+  width: 200px;
+  height: auto;
+}
+
+.nav-links {
+  position: relative;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 32px;
+  padding-bottom: 14px;
+}
+
+.nav-links::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: #2f271f;
+  border-radius: 999px;
+}
+
+.nav-link {
+  position: relative;
+  display: inline-block;
+  color: #2f271f;
+  font-family: "Silly", sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+/* Hover ring around each individual nav item. */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  right: -10px;
+  top: -6px;
+  bottom: -6px;
+  border: 4px solid #2f271f;
+  border-radius: 999px;
+  opacity: 0;
+  transform: rotate(-4deg) scale(0.9);
+  transition: opacity 160ms ease, transform 160ms ease;
+  pointer-events: none;
+}
+
+.nav-link:hover::after {
+  opacity: 1;
+  transform: rotate(-4deg) scale(1);
+}
+
+/* Main layout: diary, friends panel, and right sidebar. */
+.home-layout {
+  display: grid;
+  grid-template-columns: 40% 34% 18%;
+  gap: 8px;
+  align-items: start;
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 70px 34px 20px;
+}
+
+.home-layout h1,
+.home-layout h2 {
+  margin: 0;
+  color: #2f271f;
+  font-family: "Silly", sans-serif;
+}
+
+/* Diary panel: drawn PNG background with editable text layered on top. */
+.diary-panel {
+  position: relative;
+  aspect-ratio: 629 / 723;
+  width: 100%;
+  max-height: 68svh;
+  border: 0;
+  background-image: url("./assets/notesUI/diaryEntry.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 60px 54px 42px 60px;
+}
+
+.diary-controls {
+  position: absolute;
+  left: 20px;
+  right: 90px;
+  bottom: 58px;
+  font-family: "Silly", sans-serif;
+  color: #111;
+  text-align: center;
+}
+
+.diary-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+}
+
+.diary-buttons button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.diary-controls p {
+  margin: 8px 0 0;
+  font-size: 22px;
+}
+
+/* Friends panel: drawn PNG background with social links layered on top. */
+.friends-panel {
+  aspect-ratio: 495 / 571;
+  width: 100%;
+  max-height: 64svh;
+  border: 0;
+  background-image: url("./assets/notesUI/connNote.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 50px 46px 38px 58px;
+}
+
+.friends-panel h2 {
+  font-size: 30px;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+/* Friends panel: social/contact links in the middle green box. */
+.friend-links {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.friend-link {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: #111;
+  font-family: "Silly", sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.friend-link:hover {
+  transform: rotate(-1deg) translateX(4px);
+}
+
+.friend-icon {
+  display: grid;
+  width: 68px;
+  aspect-ratio: 1;
+  place-items: center;
+  font-size: 20px;
+}
+
+.friend-icon img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Right sidebar wrapper. Change gap to move Blog/Notes closer or farther apart. */
+.side-notes {
+  display: grid;
+  gap: 8px;
+  align-content: start;
+  width: 100%;
+}
+
+/* Shared note-panel text behavior. */
+.note-panel {
+  border: 0;
+  width: 100%;
+  background-color: transparent;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: #111;
+  font-family: "Silly", sans-serif;
+  line-height: 1.05;
+}
+
+.note-panel h2 {
+  font-size: 22px;
+  line-height: 0.95;
+}
+
+.note-panel p {
+  margin: 12px 0 0;
+  font-size: 18px;
+}
+
+/* Blog note: tune this panel independently from Xiolian's Notes. */
+.blog-note {
+  background-image: url("./assets/notesUI/blogNote.png");
+  aspect-ratio: 277 / 242;
+  padding: 30px 30px 18px 34px;
+}
+
+/* Class note: tune this panel independently from Blog Entry. */
+.class-note {
+  background-image: url("./assets/notesUI/classNote.png");
+  aspect-ratio: 300 / 442;
+  padding: 30px 30px 18px 34px;
+}
+
+/* Tablet layout: allow scrolling and stack the nav into two rows. */
+@media (max-width: 900px) {
+  .app-shell {
+    height: auto;
+    min-height: 100svh;
+    overflow: visible;
+    background-size: 100% auto;
+  }
+
+  .site-nav {
+    grid-template-columns: 120px 1fr;
+    gap: 18px;
+    padding: 18px 24px 0;
+  }
+
+  .home-button img {
+    width: 120px;
+  }
+
+  .nav-clock {
+    justify-content: flex-end;
+  }
+
+  .nav-clock img {
+    width: 180px;
+  }
+
+  .nav-links {
+    grid-column: 1 / -1;
+    justify-content: center;
+    gap: 18px;
+    padding-top: 8px;
+  }
+
+  .nav-link {
+    font-size: 28px;
+  }
+}
+
+/* Phone layout: stack the nav items so they do not overlap. */
+@media (max-width: 560px) {
+  .site-nav {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    gap: 12px;
+    padding: 16px 16px 0;
+  }
+
+  .home-button img {
+    width: 120px;
+  }
+
+  .nav-clock {
+    justify-content: center;
+  }
+
+  .nav-clock img {
+    width: 170px;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px 16px;
+    padding-bottom: 10px;
+  }
+
+  .nav-link {
+    font-size: 24px;
+  }
+}
