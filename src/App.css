@@ -25,7 +25,7 @@
   gap: 28px;
   width: min(100%, 1220px);
   margin: 0 auto;
-  padding: 18px 42px 0;
+  padding: 36px 42px 0;
 }
 
 .home-button {
@@ -39,6 +39,7 @@
 }
 
 .nav-clock {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +49,19 @@
   display: block;
   width: 200px;
   height: auto;
+}
+
+.clock-time {
+  position: absolute;
+  top: 34%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #2f271f;
+  font-family: "Silly", sans-serif;
+  font-size: 25px;
+  font-weight: 900;
+  line-height: 1;
+  pointer-events: none;
 }
 
 .nav-links {
@@ -105,11 +119,11 @@
 .home-layout {
   display: grid;
   grid-template-columns: 40% 34% 18%;
-  gap: 8px;
+  gap: 10px;
   align-items: start;
   width: min(100%, 1180px);
   margin: 0 auto;
-  padding: 70px 34px 20px;
+  padding: 50px 34px 20px;
 }
 
 .home-layout h1,
@@ -131,6 +145,15 @@
   background-repeat: no-repeat;
   background-position: center;
   padding: 60px 54px 42px 60px;
+}
+
+.diary-entry-text {
+  max-width: 76%;
+  margin: 18px 0 0 8px;
+  color: #2f271f;
+  font-family: "Silly", sans-serif;
+  font-size: 22px;
+  line-height: 1.2;
 }
 
 .diary-controls {

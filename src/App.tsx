@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import './App.css'
 import homeButton from './assets/notesUI/homeButton.png'
 import backgroundImage from './assets/notesUI/background.png'
@@ -18,6 +19,28 @@ const navItems = [
 const blogEntries = ['Today', 'Yesterday', 'Other']
 const classNotes = ['CECS524', 'CECS528', 'CECS543']
 
+// Diary entries
+const diaryEntries = [
+  {
+    title: 'Dear Diary,',
+    date: 'Sep 13, 2026',
+    time: 'Afternoon',
+    body: 'Today I worked on my tiny web corner. It is starting to feel like mine.',
+  },
+  {
+    title: 'Dear Diary,',
+    date: 'Sep 12, 2026',
+    time: 'Evening',
+    body: 'I made the homepage feel more like a sketchbook. The little panels are behaving now.',
+  },
+  {
+    title: 'Dear Diary,',
+    date: 'Sep 11, 2026',
+    time: 'Late',
+    body: 'First draft energy. Not perfect, but very alive.',
+  },
+]
+
 // Connections
 const friendLinks = [
   { label: 'GitHub', href: 'https://github.com/', icon: ghLogo, fallback: 'GH'  },
@@ -26,6 +49,37 @@ const friendLinks = [
 ]
 
 function App() {
+  const [diaryIndex, setDiaryIndex] = useState(0)
+  const [currentTime, setCurrentTime] = useState('')
+  const activeDiaryEntry = diaryEntries[diaryIndex]
+
+  useEffect(() => {
+    function updateCurrentTime() {
+      setCurrentTime(
+        new Intl.DateTimeFormat('en-US', {
+          hour: 'numeric',
+          minute: '2-digit',
+        }).format(new Date()),
+      )
+    }
+
+    updateCurrentTime()
+    const timerId = window.setInterval(updateCurrentTime, 1000)
+
+    return () => window.clearInterval(timerId)
+  }, [])
+
+  function showPreviousDiaryEntry() {
+    setDiaryIndex((currentIndex) =>
+      currentIndex === 0 ? diaryEntries.length - 1 : currentIndex - 1,
+    )
+  }
+
+  function showNextDiaryEntry() {
+    setDiaryIndex((currentIndex) =>
+      currentIndex === diaryEntries.length - 1 ? 0 : currentIndex + 1,
+    )
+  }
 
   return (
     <div className="app-shell" style={{ backgroundImage: `url(${backgroundImage})` }}>
@@ -36,7 +90,8 @@ function App() {
         </a>
 
         <div className="nav-clock">
-          <img src={clock} alt="Xiolian's Time" />
+          <img src={clock} alt="" />
+          <span className="clock-time">{currentTime}</span>
         </div>
 
         <div className="nav-links">
@@ -53,15 +108,16 @@ function App() {
       {/* Main home-page sketch layout */}
       <main className="home-layout">
         <section className="diary-panel" id="home">
-          <h1>Dear Diary,</h1>
+          <h1>{activeDiaryEntry.title}</h1>
+          <p className="diary-entry-text">{activeDiaryEntry.body}</p>
 
           <div className='diary-controls'>
             <div className='diary-buttons'>
-              <button type='button'>&lt; Prev</button>
-              <button type='button'>Next &gt;</button>
+              <button type='button' onClick={showPreviousDiaryEntry}>&lt; Prev</button>
+              <button type='button' onClick={showNextDiaryEntry}>Next &gt;</button>
             </div>
             
-            <p>Date | Time</p>
+            <p>{activeDiaryEntry.date} | {activeDiaryEntry.time}</p>
           </div>
         </section>
 
